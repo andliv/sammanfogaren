@@ -31,7 +31,7 @@ if uploaded_files_xlsx:
     combined_df = pd.concat(dfs, ignore_index=True)
 
     # Display the concatenated DataFrame
-    st.write(combined_df)
+    st.write(combined_df.head(10))
 
     # Convert the DataFrame to an Excel file in memory
     output = BytesIO()
