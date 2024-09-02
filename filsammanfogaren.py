@@ -21,7 +21,7 @@ if uploaded_files_csv:
         # Add file names to list
         file_names.append(f.name)
         # Read each file into a DataFrame and add to the list
-        data = pd.read_excel(f)
+        data = pd.read_csv(f)
         dfs.append(data)
     
     # Display the uploaded file names
