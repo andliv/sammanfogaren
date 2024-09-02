@@ -9,15 +9,15 @@ st.write('Välkommen till filsammanfogaren!')
 st.write("Ladda upp de filer du vill sammanfoga.")
 
 # File uploader allowing multiple Excel files
-uploaded_files_xlsx = st.file_uploader("Ladda upp dina XLSX-filer", type=["xlsx"], accept_multiple_files=True)
+uploaded_files_csv = st.file_uploader("Ladda upp dina csv-filer", type=["csv"], accept_multiple_files=True)
 
 # Initialize empty lists to store file names and dataframes
 file_names = []    
 dfs = []
 
 # Check if any files are uploaded
-if uploaded_files_xlsx:
-    for f in uploaded_files_xlsx:
+if uploaded_files_csv:
+    for f in uploaded_files_csv:
         # Add file names to list
         file_names.append(f.name)
         # Read each file into a DataFrame and add to the list
@@ -35,8 +35,7 @@ if uploaded_files_xlsx:
 
     # Convert the DataFrame to an Excel file in memory
     output = BytesIO()
-    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        combined_df.to_excel(writer, index=False, sheet_name='Sheet1')
+    combined_df.to_csv(output, index=False)
     
     # Reset buffer position to the beginning
     output.seek(0)
@@ -44,10 +43,10 @@ if uploaded_files_xlsx:
 
     # Create a download button for the combined Excel file
     st.download_button(
-        label="Ladda ned sammanfogade Excel-filer",
+        label="Ladda ned sammanfogade csv-filer",
         data=processed_data,
-        file_name="combined.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        file_name="combined.csv",
+        mime="text/csv"
     )
 else:
-    st.write("Ladda upp Excel-filer för att sammanfoga.")
+    st.write("Ladda upp csv-filer för att sammanfoga.")
